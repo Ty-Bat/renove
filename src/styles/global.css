@@ -104,7 +104,11 @@ main {
 }
 
 .section {
-  padding-block: clamp(4rem, 8vw, 7rem);
+  padding-block: clamp(2.5rem, 4.5vw, 4.25rem);
+}
+
+.section + .section {
+  padding-top: clamp(1.4rem, 2.6vw, 2.2rem);
 }
 
 .stack {
@@ -332,6 +336,11 @@ li {
   align-items: start;
 }
 
+.landing-hero.section {
+  padding-top: clamp(2.8rem, 5vw, 4.75rem);
+  padding-bottom: clamp(1.2rem, 2.2vw, 1.9rem);
+}
+
 .hero-copy,
 .project-page-copy {
   display: grid;
@@ -528,7 +537,7 @@ li {
   display: grid;
   gap: 1rem;
   max-width: 74ch;
-  margin-bottom: 2.1rem;
+  margin-bottom: 1.35rem;
 }
 
 .signature-grid,
@@ -716,7 +725,7 @@ li {
 .page-hero {
   display: grid;
   gap: 1.25rem;
-  padding-block: clamp(3rem, 7vw, 5rem) 1rem;
+  padding-block: clamp(2.4rem, 4.8vw, 3.8rem) 0.35rem;
 }
 
 .page-note {
@@ -807,7 +816,7 @@ li {
 }
 
 .project-page-hero {
-  padding-top: clamp(3rem, 8vw, 5rem);
+  padding-top: clamp(2.4rem, 5vw, 4rem);
 }
 
 .project-page-stage {
@@ -1137,7 +1146,16 @@ li {
 @media (max-width: 760px) {
   .section,
   .page-hero {
-    padding-block: 3.3rem;
+    padding-block: 2.6rem;
+  }
+
+  .section + .section {
+    padding-top: 1.25rem;
+  }
+
+  .landing-hero.section {
+    padding-top: 2.75rem;
+    padding-bottom: 1rem;
   }
 
   .site-header-inner,
