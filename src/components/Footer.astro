@@ -1,0 +1,46 @@
+---
+import { buildWhatsappHref, siteData } from '../data/site';
+
+const whatsappHref = buildWhatsappHref(siteData.defaultWhatsappMessage);
+---
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="stack">
+      <div class="brand-lockup">
+        <span class="brand-mark">Ty Bat</span>
+        <span class="brand-subtitle">Morlaix et Finistere nord</span>
+      </div>
+      <p>
+        {siteData.story}
+      </p>
+      <div class="footer-meta">
+        <a href={siteData.phoneHref} data-plausible-event="click_phone" data-plausible-context="footer">
+          {siteData.phoneDisplay}
+        </a>
+        <a href={whatsappHref} target="_blank" rel="noreferrer" data-plausible-event="click_whatsapp" data-plausible-context="footer">
+          WhatsApp
+        </a>
+        <a href={siteData.facebookUrl} target="_blank" rel="noreferrer">
+          Facebook
+        </a>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="footer-links">
+        <a href="/services/">Services</a>
+        <a href="/realisations/">Realisations</a>
+        <a href="/contact/">Contact</a>
+      </div>
+      <div class="footer-links">
+        <a href="/mentions-legales/">Mentions legales</a>
+        <a href="/confidentialite/">Confidentialite</a>
+        <a href="/cookies/">Gerer mes cookies</a>
+      </div>
+      <p>
+        {siteData.locationNote}
+      </p>
+    </div>
+  </div>
+</footer>

@@ -1,23 +1,92 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import CookieBanner from '../components/CookieBanner.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import MobileContactBar from '../components/MobileContactBar.astro';
+import SeoMeta from '../components/SeoMeta.astro';
+import { buildBusinessSchema, siteData } from '../data/site';
+import '../styles/global.css';
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  noindex?: boolean;
+  schema?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const {
+  title,
+  description,
+  image,
+  canonical,
+  noindex,
+  schema,
+} = Astro.props as Props;
+
+const schemaPayload = schema
+  ? Array.isArray(schema)
+    ? [buildBusinessSchema(), ...schema]
+    : [buildBusinessSchema(), schema]
+  : [buildBusinessSchema()];
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <SeoMeta
+      title={title}
+      description={description}
+      image={image}
+      canonical={canonical}
+      noindex={noindex}
+      schema={schemaPayload}
+    />
+    {siteData.analytics.enabled && (
+      <script
+        is:inline
+        defer
+        data-domain={siteData.analytics.plausibleDomain}
+        src={siteData.analytics.plausibleScriptSrc}
+      />
+    )}
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">
+      Aller au contenu
+    </a>
+
+    <div class="site-shell">
+      <Header />
+      <main id="main-content">
+        <slot />
+      </main>
+      <Footer />
+      <MobileContactBar />
+      <CookieBanner />
+    </div>
+
+    {siteData.analytics.enabled && (
+      <script is:inline>
+        document.addEventListener('click', (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest('[data-plausible-event]')
+            : null;
+
+          if (!target || typeof window.plausible !== 'function') return;
+
+          const eventName = target.getAttribute('data-plausible-event');
+          const context = target.getAttribute('data-plausible-context');
+          const project = target.getAttribute('data-plausible-project');
+          const props = {};
+
+          if (context) props.context = context;
+          if (project) props.project = project;
+
+          window.plausible(eventName, Object.keys(props).length ? { props } : undefined);
+        });
+      </script>
+    )}
+  </body>
+</html>

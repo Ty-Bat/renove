@@ -1,0 +1,72 @@
+---
+import type { ImageMetadata } from 'astro';
+import PictureBlock from './PictureBlock.astro';
+
+interface Props {
+  title: string;
+  images: ImageMetadata[];
+  label: string;
+}
+
+const { title, images, label } = Astro.props as Props;
+const dialogId = `dialog-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+---
+
+<section class="gallery-shell stack">
+  <div class="section-header">
+    <span class="eyebrow">{label}</span>
+    <h2>{title}</h2>
+  </div>
+
+  <div class="gallery-track">
+    {images.map((image, index) => (
+      <button
+        type="button"
+        class="gallery-button"
+        data-gallery-open={dialogId}
+        data-gallery-src={image.src}
+        data-gallery-alt={`${title} ${index + 1}`}
+        aria-label={`Ouvrir l image ${index + 1} de la galerie ${title}`}
+      >
+        <figure>
+          <div class="media-frame">
+            <PictureBlock
+              src={image}
+              alt={`${title} ${index + 1}`}
+              sizes="(min-width: 960px) 28vw, 72vw"
+            />
+          </div>
+          <span>Vue {index + 1}</span>
+        </figure>
+      </button>
+    ))}
+  </div>
+</section>
+
+<dialog class="dialog-viewer" id={dialogId}>
+  <div class="dialog-shell">
+    <div class="dialog-toolbar">
+      <strong>{title}</strong>
+      <form method="dialog">
+        <button type="submit">Fermer</button>
+      </form>
+    </div>
+    <img alt="" />
+  </div>
+</dialog>
+
+<script is:inline>
+  document.querySelectorAll('[data-gallery-open]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const dialogId = button.getAttribute('data-gallery-open');
+      const dialog = document.getElementById(dialogId);
+      const image = dialog?.querySelector('img');
+
+      if (!(dialog instanceof HTMLDialogElement) || !image) return;
+
+      image.src = button.getAttribute('data-gallery-src') ?? '';
+      image.alt = button.getAttribute('data-gallery-alt') ?? '';
+      dialog.showModal();
+    });
+  });
+</script>

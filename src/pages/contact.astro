@@ -1,0 +1,91 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { buildAbsoluteUrl, buildProjectWhatsappMessage, buildWhatsappHref, siteData } from '../data/site';
+
+const whatsappHref = buildWhatsappHref(buildProjectWhatsappMessage());
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact Ty Bat',
+  url: buildAbsoluteUrl('/contact/'),
+};
+---
+
+<Layout
+  title="Contact"
+  description="Contacter Ty Bat pour un projet de renovation interieure a Morlaix et dans le Finistere nord."
+  canonical={buildAbsoluteUrl('/contact/')}
+  schema={schema}
+>
+  <section class="page-hero section">
+    <span class="eyebrow">Contact</span>
+    <h1 class="page-title">Appel direct ou message WhatsApp pre-rempli.</h1>
+    <p class="page-lead">
+      Le site privilegie les prises de contact simples : un appel pour aller vite, ou WhatsApp pour envoyer des photos et
+      decrire le projet sans formulaire long.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="contact-grid">
+      <article class="contact-card stack">
+        <span class="eyebrow">Canaux</span>
+        <h2>Parler du chantier sans friction.</h2>
+        <div class="button-row">
+          <a
+            class="button button-primary"
+            href={whatsappHref}
+            target="_blank"
+            rel="noreferrer"
+            data-plausible-event="click_whatsapp"
+            data-plausible-context="contact"
+          >
+            Message WhatsApp
+          </a>
+          <a
+            class="button button-secondary"
+            href={siteData.phoneHref}
+            data-plausible-event="click_phone"
+            data-plausible-context="contact"
+          >
+            {siteData.phoneDisplay}
+          </a>
+        </div>
+        <p>
+          Message conseille : photos du volume, usage souhaite, ville du projet et delai ideal.
+        </p>
+        {siteData.email && (
+          <p>
+            Email de secours :{' '}
+            <a
+              class="text-link"
+              href={`mailto:${siteData.email}`}
+              data-plausible-event="click_email"
+              data-plausible-context="contact"
+            >
+              {siteData.email}
+            </a>
+          </p>
+        )}
+      </article>
+
+      <article class="contact-card stack">
+        <span class="eyebrow">Zone d intervention</span>
+        <h2>{siteData.serviceAreaLabel}</h2>
+        <ul class="chip-list">
+          {siteData.serviceAreas.map((area) => (
+            <li class="chip">{area}</li>
+          ))}
+        </ul>
+        <div class="stack">
+          <strong>Horaires</strong>
+          <ul>
+            {siteData.openingHours.map((line) => (
+              <li>{line}</li>
+            ))}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+</Layout>

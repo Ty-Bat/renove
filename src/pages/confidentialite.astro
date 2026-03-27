@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { buildAbsoluteUrl, siteData } from '../data/site';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Politique de confidentialite Ty Bat',
+  url: buildAbsoluteUrl('/confidentialite/'),
+};
+---
+
+<Layout
+  title="Confidentialite"
+  description="Politique de confidentialite du site Ty Bat concernant la navigation, la mesure d audience et la prise de contact."
+  canonical={buildAbsoluteUrl('/confidentialite/')}
+  schema={schema}
+>
+  <section class="page-hero section">
+    <span class="eyebrow">RGPD</span>
+    <h1 class="page-title">Politique de confidentialite</h1>
+    <p class="page-lead">
+      Cette page formalise la base du dispositif RGPD de la v1. Elle reste volontairement claire et courte, en coherence
+      avec un site vitrine sans espace client ni tunnel complexe.
+    </p>
+  </section>
+
+  <section class="section legal-grid">
+    <article class="legal-card stack">
+      <h2>Responsable du traitement</h2>
+      <p>TY BAT, {siteData.legal.headOffice}.</p>
+      <p>Contact RGPD : {siteData.legal.contactEmail}.</p>
+    </article>
+
+    <article class="legal-card stack">
+      <h2>Donnees traitees</h2>
+      <ul>
+        <li>Donnees techniques de navigation strictement necessaires au fonctionnement du site.</li>
+        <li>Donnees statistiques anonymisees ou pseudonymisees via Plausible selon la configuration retenue.</li>
+        <li>Donnees communiquees volontairement par l utilisateur s il poursuit l echange par telephone ou WhatsApp.</li>
+      </ul>
+    </article>
+
+    <article class="legal-card stack">
+      <h2>Finalites et bases legales</h2>
+      <ul>
+        <li>Mesurer l audience du site et les clics de conversion pour piloter son efficacite.</li>
+        <li>Repondre a une prise de contact commerciale ou technique.</li>
+        <li>Respecter les obligations legales applicables a l editeur du site.</li>
+      </ul>
+    </article>
+
+    <article class="legal-card stack">
+      <h2>Duree de conservation</h2>
+      <ul>
+        <li>Donnees d audience : selon la configuration de l outil analytics retenu.</li>
+        <li>Donnees d echange commercial : selon la relation commerciale en cours et les obligations legales applicables.</li>
+      </ul>
+    </article>
+
+    <article class="legal-card stack">
+      <h2>Droits des personnes</h2>
+      <p>
+        Vous pouvez demander l acces, la rectification, l effacement, la limitation ou l opposition au traitement de vos
+        donnees dans les conditions prevues par la reglementation applicable.
+      </p>
+      <p>Pour exercer ces droits : {siteData.legal.contactEmail}.</p>
+    </article>
+  </section>
+</Layout>

@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { buildAbsoluteUrl } from '../data/site';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Gestion des cookies Ty Bat',
+  url: buildAbsoluteUrl('/cookies/'),
+};
+---
+
+<Layout
+  title="Cookies"
+  description="Politique cookies et architecture de consentement du site Ty Bat."
+  canonical={buildAbsoluteUrl('/cookies/')}
+  schema={schema}
+>
+  <section class="page-hero section">
+    <span class="eyebrow">Traceurs</span>
+    <h1 class="page-title">Cookies et mesure d audience</h1>
+    <p class="page-lead">
+      La v1 evite les widgets Facebook, les embeds sociaux et les scripts marketing superflus. Le site est prepare pour une
+      gestion du consentement si des traceurs non exemptes sont ajoutes plus tard.
+    </p>
+  </section>
+
+  <section class="section legal-grid">
+    <article class="legal-card stack">
+      <h2>Configuration retenue en v1</h2>
+      <ul>
+        <li>Pas d integration de widget Facebook ni de bouton de partage tiers.</li>
+        <li>Plausible pour la mesure d audience et le suivi des clics de conversion.</li>
+        <li>Aucun bandeau n est active tant que la configuration finale reste compatible avec le cadrage retenu.</li>
+      </ul>
+    </article>
+
+    <article class="legal-card stack">
+      <h2>Evenements suivis</h2>
+      <ul>
+        <li>click_phone</li>
+        <li>click_whatsapp</li>
+        <li>click_email</li>
+        <li>project_cta_click</li>
+      </ul>
+    </article>
+
+    <article class="legal-card stack">
+      <h2>Architecture prevue si le consentement devient obligatoire</h2>
+      <ul>
+        <li>Banniere avec boutons Tout accepter et Tout refuser au meme niveau.</li>
+        <li>Lien permanent Gere mes cookies dans le footer.</li>
+        <li>Blocage conditionnel des scripts tiers tant que le consentement n est pas donne.</li>
+      </ul>
+    </article>
+  </section>
+</Layout>

@@ -1,0 +1,27 @@
+---
+const pathname = Astro.url.pathname;
+
+const navItems = [
+  { href: '/', label: 'Accueil' },
+  { href: '/realisations/', label: 'Realisations' },
+  { href: '/services/', label: 'Services' },
+  { href: '/contact/', label: 'Contact' },
+];
+---
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand-lockup" href="/">
+      <span class="brand-mark">Ty Bat</span>
+      <span class="brand-subtitle">Renovation interieure</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Navigation principale">
+      {navItems.map((item) => (
+        <a href={item.href} aria-current={pathname === item.href ? 'page' : undefined}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,26 @@
+---
+import { buildWhatsappHref, siteData } from '../data/site';
+
+const whatsappHref = buildWhatsappHref(siteData.defaultWhatsappMessage);
+---
+
+<div class="mobile-contact-bar" aria-label="Actions rapides">
+  <a
+    class="button button-secondary"
+    href={siteData.phoneHref}
+    data-plausible-event="click_phone"
+    data-plausible-context="mobile-bar"
+  >
+    Appeler
+  </a>
+  <a
+    class="button button-primary"
+    href={whatsappHref}
+    target="_blank"
+    rel="noreferrer"
+    data-plausible-event="click_whatsapp"
+    data-plausible-context="mobile-bar"
+  >
+    WhatsApp
+  </a>
+</div>

@@ -1,0 +1,81 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { buildAbsoluteUrl, buildProjectWhatsappMessage, buildWhatsappHref, siteData } from '../data/site';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Services Ty Bat',
+  url: buildAbsoluteUrl('/services/'),
+};
+---
+
+<Layout
+  title="Services"
+  description="Services de renovation interieure proposes par Ty Bat : cuisines, salles de bain, second oeuvre et finition."
+  canonical={buildAbsoluteUrl('/services/')}
+  schema={schema}
+>
+  <section class="page-hero section">
+    <span class="eyebrow">Prestations</span>
+    <h1 class="page-title">Des travaux interieurs menes avec une logique de chantier claire.</h1>
+    <p class="page-lead">
+      Le site ne vend pas une liste impersonnelle de prestations. Il montre comment Ty Bat prend en charge les volumes, les
+      reseaux et les finitions pour livrer un interieur coherent.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="service-grid">
+      {siteData.services.map((service) => (
+        <article class="service-card">
+          <h2>{service.title}</h2>
+          <p>{service.summary}</p>
+          <ul>
+            {service.items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="two-column">
+      <article class="panel stack">
+        <span class="eyebrow">Approche</span>
+        <h2>Pourquoi cette structure de site convertit mieux.</h2>
+        <p>
+          Les prestations sont reliees aux vrais projets et au contexte local. Cela rend le site plus credible pour le SEO,
+          mais surtout plus rassurant pour un futur client qui cherche deja un artisan.
+        </p>
+      </article>
+
+      <article class="panel stack">
+        <span class="eyebrow">Contact</span>
+        <h2>Partager un besoin, une photo ou une urgence.</h2>
+        <div class="button-row">
+          <a
+            class="button button-primary"
+            href={buildWhatsappHref(buildProjectWhatsappMessage())}
+            target="_blank"
+            rel="noreferrer"
+            data-plausible-event="click_whatsapp"
+            data-plausible-context="services"
+          >
+            Ouvrir WhatsApp
+          </a>
+          <a
+            class="button button-secondary"
+            href={siteData.phoneHref}
+            data-plausible-event="click_phone"
+            data-plausible-context="services"
+          >
+            {siteData.phoneDisplay}
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+</Layout>

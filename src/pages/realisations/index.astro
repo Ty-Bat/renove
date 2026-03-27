@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { buildAbsoluteUrl } from '../../data/site';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.featuredOrder - b.data.featuredOrder,
+);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Realisations Ty Bat',
+  url: buildAbsoluteUrl('/realisations/'),
+};
+---
+
+<Layout
+  title="Realisations"
+  description="Galerie de projets de renovation interieure signes Ty Bat : cuisines, salle de bain et transformation d espaces."
+  canonical={buildAbsoluteUrl('/realisations/')}
+  schema={schema}
+>
+  <section class="page-hero section">
+    <span class="eyebrow">Portfolio</span>
+    <h1 class="page-title">Des projets reels, pas des promesses abstraites.</h1>
+    <p class="page-lead">
+      Chaque fiche montre un angle concret du travail Ty Bat : finition livree, volume repense, ou transformation avant /
+      apres.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="project-grid">
+      {projects.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
+  </section>
+</Layout>

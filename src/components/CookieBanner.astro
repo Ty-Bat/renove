@@ -1,0 +1,42 @@
+---
+import { siteData } from '../data/site';
+
+const enabled = siteData.compliance.cookieBannerEnabled;
+---
+
+{enabled && (
+  <>
+    <div class="notice-card container" id="cookie-banner">
+      <div class="stack">
+        <strong>Gestion des cookies</strong>
+        <p>
+          Ce composant est pret a etre active si des traceurs non exemptes sont ajoutes au site.
+        </p>
+        <div class="button-row">
+          <button class="button button-primary" type="button" data-cookie-choice="accept">
+            Tout accepter
+          </button>
+          <button class="button button-secondary" type="button" data-cookie-choice="reject">
+            Tout refuser
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script is:inline>
+      const banner = document.getElementById('cookie-banner');
+      const storageKey = 'ty-bat-cookie-choice';
+
+      if (localStorage.getItem(storageKey)) {
+        banner?.remove();
+      }
+
+      banner?.querySelectorAll('[data-cookie-choice]').forEach((button) => {
+        button.addEventListener('click', () => {
+          localStorage.setItem(storageKey, button.getAttribute('data-cookie-choice') ?? 'reject');
+          banner.remove();
+        });
+      });
+    </script>
+  </>
+)}

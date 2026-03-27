@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { buildAbsoluteUrl, siteData } from '../data/site';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Mentions legales Ty Bat',
+  url: buildAbsoluteUrl('/mentions-legales/'),
+};
+---
+
+<Layout
+  title="Mentions legales"
+  description="Mentions legales du site Ty Bat. Certaines informations administratives restent a verifier avant mise en ligne finale."
+  canonical={buildAbsoluteUrl('/mentions-legales/')}
+  schema={schema}
+>
+  <section class="page-hero section">
+    <span class="eyebrow">Conformite</span>
+    <h1 class="page-title">Mentions legales</h1>
+    <p class="page-lead">
+      {siteData.compliance.legalNotice}
+    </p>
+  </section>
+
+  <section class="section legal-grid">
+    <article class="legal-card stack">
+      <h2>Editeur du site</h2>
+      <p><strong>Entreprise :</strong> {siteData.legal.companyName}</p>
+      <p><strong>Forme juridique :</strong> {siteData.legal.legalForm}</p>
+      <p><strong>Capital :</strong> {siteData.legal.capital}</p>
+      <p><strong>SIREN :</strong> {siteData.legal.siren}</p>
+      <p><strong>SIRET :</strong> {siteData.legal.siret}</p>
+      <p><strong>RCS :</strong> {siteData.legal.rcs}</p>
+      <p><strong>TVA intracommunautaire :</strong> {siteData.legal.vat}</p>
+      <p><strong>Siege social :</strong> {siteData.legal.headOffice}</p>
+      <p><strong>Telephone :</strong> {siteData.phoneDisplay}</p>
+      <p><strong>Email :</strong> {siteData.legal.contactEmail}</p>
+    </article>
+
+    <article class="legal-card stack">
+      <h2>Responsabilites</h2>
+      <p><strong>Directeur de la publication :</strong> {siteData.legal.publicationDirector}</p>
+      <p>
+        Les informations communiquees sur ce site le sont a titre informatif. Ty Bat se reserve le droit de modifier le
+        contenu a tout moment.
+      </p>
+      <p>
+        Les photographies de chantier presentes sur ce site sont exploitees dans un cadre vitrine et ne peuvent etre
+        reproduites sans autorisation.
+      </p>
+    </article>
+
+    <article class="legal-card stack">
+      <h2>Hebergement</h2>
+      <p><strong>Hebergeur :</strong> {siteData.legal.hostName}</p>
+      <p><strong>Adresse :</strong> {siteData.legal.hostAddress}</p>
+      <p><strong>Telephone :</strong> {siteData.legal.hostPhone}</p>
+    </article>
+  </section>
+</Layout>

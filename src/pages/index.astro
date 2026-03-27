@@ -1,11 +1,235 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import { getCollection } from 'astro:content';
+import PictureBlock from '../components/PictureBlock.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import Layout from '../layouts/Layout.astro';
+import {
+  buildAbsoluteUrl,
+  buildProjectWhatsappMessage,
+  buildWhatsappHref,
+  siteData,
+} from '../data/site';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.featuredOrder - b.data.featuredOrder,
+);
+
+const [leadProject, secondProject] = projects;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Accueil Ty Bat',
+  url: buildAbsoluteUrl('/'),
+  description: siteData.description,
+};
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title="Renovation interieure a Morlaix"
+  description={siteData.description}
+  image={leadProject.data.heroImage.src}
+  canonical={buildAbsoluteUrl('/')}
+  schema={schema}
+>
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Ty Bat • Morlaix et Finistere nord</span>
+      <h1 class="hero-title">{siteData.heroTitle}</h1>
+      <p class="hero-lead">
+        Ty Bat realise des renovations interieures propres, lisibles et solides, avec un site pense pour rassurer vite :
+        des projets reels, des materiaux visibles et une prise de contact sans friction.
+      </p>
+
+      <div class="button-row">
+        <a
+          class="button button-primary"
+          href={buildWhatsappHref(buildProjectWhatsappMessage())}
+          target="_blank"
+          rel="noreferrer"
+          data-plausible-event="click_whatsapp"
+          data-plausible-context="hero"
+        >
+          Demarrer sur WhatsApp
+        </a>
+        <a
+          class="button button-secondary"
+          href={siteData.phoneHref}
+          data-plausible-event="click_phone"
+          data-plausible-context="hero"
+        >
+          Appeler Ty Bat
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <article class="stat-card">
+          <strong>1</strong>
+          <span>interlocuteur unique</span>
+        </article>
+        <article class="stat-card">
+          <strong>3</strong>
+          <span>chantiers deja montres sur le site</span>
+        </article>
+        <article class="stat-card">
+          <strong>Finistere nord</strong>
+          <span>zone d intervention structuree pour le SEO local</span>
+        </article>
+      </div>
+    </div>
+
+    <div class="hero-grid">
+      <div class="hero-visual">
+        <article class="hero-card">
+          <div class="hero-media">
+            <PictureBlock
+              src={leadProject.data.heroImage}
+              alt={leadProject.data.heroAlt}
+              sizes="(min-width: 1050px) 32vw, 92vw"
+              loading="eager"
+            />
+          </div>
+          <footer>
+            <span>{leadProject.data.title}</span>
+            <span>{leadProject.data.category}</span>
+          </footer>
+        </article>
+
+        <article class="hero-card alt">
+          <div class="hero-media">
+            <PictureBlock
+              src={secondProject.data.heroImage}
+              alt={secondProject.data.heroAlt}
+              sizes="(min-width: 1050px) 28vw, 86vw"
+            />
+          </div>
+          <footer>
+            <span>{secondProject.data.title}</span>
+            <span>{secondProject.data.location}</span>
+          </footer>
+        </article>
+
+        <aside class="quote-card">
+          <strong>{siteData.socialProof.label}</strong>
+          <p>{siteData.socialProof.text}</p>
+          <a class="text-link" href={siteData.facebookUrl} target="_blank" rel="noreferrer">
+            Voir la page Facebook
+          </a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <span class="eyebrow">Realisations</span>
+      <h2>Trois projets qui montrent des typologies tres differentes.</h2>
+      <p class="page-lead">
+        Le site demarre avec de vrais chantiers : une salle de bain terminee, une cuisine fonctionnelle et une arriere-cuisine
+        transformee depuis un volume brut.
+      </p>
+    </div>
+
+    <div class="project-grid">
+      {projects.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="services-layout">
+      <div class="stack">
+        <div class="section-header">
+          <span class="eyebrow">Ce que Ty Bat prend en charge</span>
+          <h2>Un site vitrine qui parle autant du geste que du rendu final.</h2>
+        </div>
+
+        <div class="service-grid">
+          {siteData.services.map((service) => (
+            <article class="service-card">
+              <h3>{service.title}</h3>
+              <p>{service.summary}</p>
+              <ul class="chip-list" aria-label={`Prestations ${service.title}`}>
+                {service.items.map((item) => (
+                  <li class="chip">{item}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <aside class="stack">
+        {siteData.differentiators.map((item) => (
+          <article class="panel">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <span class="eyebrow">Methode</span>
+      <h2>Un parcours simple, comprehensible et rassurant.</h2>
+    </div>
+
+    <div class="process-grid">
+      {siteData.process.map((item) => (
+        <article class="process-card">
+          <div class="step">{item.step}</div>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="contact-grid">
+      <article class="contact-card">
+        <span class="eyebrow">Zone d intervention</span>
+        <h2>{siteData.serviceAreaLabel}</h2>
+        <p>
+          Le site est ecrit pour le referencement local autour de Morlaix, tout en restant extensible si Ty Bat couvre une
+          zone plus large.
+        </p>
+        <ul class="chip-list" aria-label="Villes et secteurs">
+          {siteData.serviceAreas.map((area) => (
+            <li class="chip">{area}</li>
+          ))}
+        </ul>
+      </article>
+
+      <article class="contact-card">
+        <span class="eyebrow">Prise de contact</span>
+        <h2>Le canal le plus simple reste le bon.</h2>
+        <p>
+          Appel direct pour une urgence, WhatsApp pour partager des photos ou decrire un besoin sans remplir de long formulaire.
+        </p>
+        <div class="button-row">
+          <a
+            class="button button-primary"
+            href={buildWhatsappHref(buildProjectWhatsappMessage())}
+            target="_blank"
+            rel="noreferrer"
+            data-plausible-event="click_whatsapp"
+            data-plausible-context="home-final-cta"
+          >
+            Envoyer un message
+          </a>
+          <a
+            class="button button-secondary"
+            href={siteData.phoneHref}
+            data-plausible-event="click_phone"
+            data-plausible-context="home-final-cta"
+          >
+            {siteData.phoneDisplay}
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
 </Layout>
