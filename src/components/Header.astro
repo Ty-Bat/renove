@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../data/site';
+
 const pathname = Astro.url.pathname;
 
 const navItems = [
@@ -11,14 +13,14 @@ const navItems = [
 
 <header class="site-header">
   <div class="site-header-inner">
-    <a class="brand-lockup" href="/">
+    <a class="brand-lockup" href={withBase('/')}>
       <span class="brand-mark">Ty Bat</span>
       <span class="brand-subtitle">Renovation interieure</span>
     </a>
 
     <nav class="site-nav" aria-label="Navigation principale">
       {navItems.map((item) => (
-        <a href={item.href} aria-current={pathname === item.href ? 'page' : undefined}>
+        <a href={withBase(item.href)} aria-current={pathname === withBase(item.href) ? 'page' : undefined}>
           {item.label}
         </a>
       ))}

@@ -1,5 +1,5 @@
 ---
-import { buildWhatsappHref, siteData } from '../data/site';
+import { buildWhatsappHref, siteData, withBase } from '../data/site';
 
 const whatsappHref = buildWhatsappHref(siteData.defaultWhatsappMessage);
 ---
@@ -29,14 +29,14 @@ const whatsappHref = buildWhatsappHref(siteData.defaultWhatsappMessage);
 
     <div class="stack">
       <div class="footer-links">
-        <a href="/services/">Services</a>
-        <a href="/realisations/">Realisations</a>
-        <a href="/contact/">Contact</a>
+        <a href={withBase('/services/')}>Services</a>
+        <a href={withBase('/realisations/')}>Realisations</a>
+        <a href={withBase('/contact/')}>Contact</a>
       </div>
       <div class="footer-links">
-        <a href="/mentions-legales/">Mentions legales</a>
-        <a href="/confidentialite/">Confidentialite</a>
-        <a href="/cookies/">Gerer mes cookies</a>
+        <a href={withBase('/mentions-legales/')}>Mentions legales</a>
+        <a href={withBase('/confidentialite/')}>Confidentialite</a>
+        <a href={withBase('/cookies/')}>Gerer mes cookies</a>
       </div>
       <p>
         {siteData.locationNote}

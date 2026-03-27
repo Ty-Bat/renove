@@ -1,5 +1,5 @@
 ---
-import { siteData } from '../data/site';
+import { siteData, withBase } from '../data/site';
 
 interface Props {
   title?: string;
@@ -33,8 +33,8 @@ const schemaPayload = schema
 <title>{pageTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="icon" href="/favicon.ico" />
+<link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+<link rel="icon" href={withBase('/favicon.ico')} />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content={siteData.name} />
 <meta property="og:title" content={pageTitle} />

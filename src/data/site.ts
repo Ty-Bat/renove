@@ -1,5 +1,14 @@
+const siteOrigin =
+  process.env.SITE_ORIGIN ?? 'https://www.renovation-interieure-tybat.fr';
+const rawBasePath = process.env.BASE_PATH ?? '/';
+const basePath =
+  rawBasePath === '/'
+    ? '/'
+    : `/${rawBasePath.replace(/^\/+|\/+$/g, '')}`;
+
 export const siteData = {
-  siteUrl: 'https://www.renovation-interieure-tybat.fr',
+  siteOrigin,
+  basePath,
   name: 'Ty Bat',
   shortName: 'Ty Bat',
   tagline: 'Renovation interieure soignee, du volume brut au chantier livre.',
@@ -120,6 +129,16 @@ export const siteData = {
     "Zone d intervention a preciser a la mise en ligne : le site est deja structure pour le SEO local autour de Morlaix et du Finistere nord.",
 } as const;
 
+export function withBase(pathname = '/') {
+  const normalizedPath = pathname.startsWith('/') ? pathname : `/${pathname}`;
+
+  if (siteData.basePath === '/') {
+    return normalizedPath;
+  }
+
+  return `${siteData.basePath}${normalizedPath}`.replace(/\/{2,}/g, '/');
+}
+
 export function buildWhatsappHref(message: string) {
   return `https://wa.me/${siteData.whatsappDigits}?text=${encodeURIComponent(
     message,
@@ -135,7 +154,7 @@ export function buildProjectWhatsappMessage(projectTitle?: string) {
 }
 
 export function buildAbsoluteUrl(pathname = '/') {
-  return new URL(pathname, siteData.siteUrl).toString();
+  return new URL(withBase(pathname), siteData.siteOrigin).toString();
 }
 
 export function buildBusinessSchema() {
@@ -143,7 +162,7 @@ export function buildBusinessSchema() {
     '@context': 'https://schema.org',
     '@type': 'HomeAndConstructionBusiness',
     name: siteData.name,
-    url: siteData.siteUrl,
+    url: buildAbsoluteUrl('/'),
     description: siteData.description,
     telephone: siteData.phoneDisplay,
     areaServed: siteData.serviceAreas,

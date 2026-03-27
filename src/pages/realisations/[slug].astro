@@ -7,6 +7,7 @@ import {
   buildAbsoluteUrl,
   buildProjectWhatsappMessage,
   buildWhatsappHref,
+  withBase,
 } from '../../data/site';
 
 export async function getStaticPaths() {
@@ -74,7 +75,7 @@ const relatedProjects = (await getCollection('projects'))
           >
             Parler de ce projet
           </a>
-          <a class="button button-secondary" href="/contact/">
+          <a class="button button-secondary" href={withBase('/contact/')}>
             Voir la page contact
           </a>
         </div>
@@ -159,7 +160,7 @@ const relatedProjects = (await getCollection('projects'))
             <p>{entry.data.summary}</p>
             <footer>
               <span>{entry.data.location}</span>
-              <a class="text-link" href={`/realisations/${entry.id.replace(/\.md$/, '')}/`} data-plausible-event="project_cta_click" data-plausible-context="related-project" data-plausible-project={entry.data.title}>
+              <a class="text-link" href={withBase(`/realisations/${entry.id.replace(/\.md$/, '')}/`)} data-plausible-event="project_cta_click" data-plausible-context="related-project" data-plausible-project={entry.data.title}>
                 Voir le projet
               </a>
             </footer>

@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { withBase } from '../data/site';
 import PictureBlock from './PictureBlock.astro';
 
 interface Props {
@@ -33,7 +34,7 @@ const projectSlug = project.id.replace(/\.md$/, '');
 
     <footer>
       <span>{project.data.location}</span>
-      <a class="text-link" href={`/realisations/${projectSlug}/`} data-plausible-event="project_cta_click" data-plausible-context="project-card" data-plausible-project={project.data.title}>
+      <a class="text-link" href={withBase(`/realisations/${projectSlug}/`)} data-plausible-event="project_cta_click" data-plausible-context="project-card" data-plausible-project={project.data.title}>
         Voir le projet
       </a>
     </footer>
