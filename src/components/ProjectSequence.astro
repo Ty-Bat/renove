@@ -1,0 +1,87 @@
+---
+import type { ImageMetadata } from 'astro';
+import PictureBlock from './PictureBlock.astro';
+
+interface Props {
+  label: string;
+  title: string;
+  text: string;
+  images: ImageMetadata[];
+  reverse?: boolean;
+}
+
+const {
+  label,
+  title,
+  text,
+  images,
+  reverse = false,
+} = Astro.props as Props;
+
+const dialogId = `sequence-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+---
+
+<section class:list={['sequence-block', reverse && 'is-reversed']}>
+  <div class="sequence-copy">
+    <span class="eyebrow">{label}</span>
+    <h2>{title}</h2>
+    <p>{text}</p>
+    <span class="sequence-meta">{images.length} vue{images.length > 1 ? 's' : ''} regroupee{images.length > 1 ? 's' : ''}</span>
+  </div>
+
+  <div class="sequence-gallery" data-count={Math.min(images.length, 4)}>
+    {images.map((image, index) => (
+      <button
+        type="button"
+        class:list={['sequence-thumb', index === 0 && images.length > 1 && 'is-featured']}
+        data-sequence-open
+        data-sequence-dialog={dialogId}
+        data-sequence-src={image.src}
+        data-sequence-alt={`${title} ${index + 1}`}
+        aria-label={`Ouvrir la vue ${index + 1} de la section ${title}`}
+      >
+        <PictureBlock
+          src={image}
+          alt={`${title} ${index + 1}`}
+          sizes="(min-width: 1100px) 34vw, (min-width: 760px) 42vw, 92vw"
+        />
+      </button>
+    ))}
+  </div>
+</section>
+
+<dialog class="dialog-viewer" id={dialogId}>
+  <div class="dialog-shell">
+    <div class="dialog-toolbar">
+      <strong>{title}</strong>
+      <form method="dialog">
+        <button type="submit">Fermer</button>
+      </form>
+    </div>
+    <img alt="" />
+  </div>
+</dialog>
+
+<script is:inline>
+  if (!window.__tyBatSequenceViewerBound) {
+    window.__tyBatSequenceViewerBound = true;
+
+    document.addEventListener('click', (event) => {
+      const button = event.target instanceof Element
+        ? event.target.closest('[data-sequence-open]')
+        : null;
+
+      if (!button) return;
+
+      const dialogId = button.getAttribute('data-sequence-dialog');
+      const dialog = dialogId ? document.getElementById(dialogId) : null;
+      const image = dialog?.querySelector('img');
+
+      if (!(dialog instanceof HTMLDialogElement) || !image) return;
+
+      image.src = button.getAttribute('data-sequence-src') ?? '';
+      image.alt = button.getAttribute('data-sequence-alt') ?? '';
+      dialog.showModal();
+    });
+  }
+</script>

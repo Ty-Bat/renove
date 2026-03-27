@@ -18,17 +18,42 @@ const schema = {
 
 <Layout
   title="Realisations"
-  description="Galerie de projets de renovation interieure signes Ty Bat : cuisines, salle de bain et transformation d espaces."
+  description="Galerie de projets de renovation interieure signes Ty Bat : cuisines, salles de bain et transformation d espaces."
   canonical={buildAbsoluteUrl('/realisations/')}
   schema={schema}
 >
-  <section class="page-hero section">
-    <span class="eyebrow">Portfolio</span>
-    <h1 class="page-title">Des projets reels, pas des promesses abstraites.</h1>
-    <p class="page-lead">
-      Chaque fiche montre un angle concret du travail Ty Bat : finition livree, volume repense, ou transformation avant /
-      apres.
-    </p>
+  <section class="page-hero section page-hero-split">
+    <div>
+      <span class="eyebrow">Portfolio</span>
+      <h1 class="page-title">Des chantiers classes comme un carnet de realisations, pas comme une simple galerie.</h1>
+      <p class="page-lead">
+        Chaque projet est presente par sequence: vue d ensemble, transformation, details de finition et, quand ils existent,
+        visuels d etat initial.
+      </p>
+    </div>
+
+    <aside class="page-note">
+      <strong>Lecture des fiches</strong>
+      <p>Un meme chantier peut melanger photos larges, vues de detail et etapes de transformation pour montrer l action realisee.</p>
+    </aside>
+  </section>
+
+  <section class="section detail-pillar-grid">
+    <article class="detail-pillar">
+      <span>01</span>
+      <h2>Vue d ensemble</h2>
+      <p>Pour comprendre la piece livree, sa circulation et sa lecture generale.</p>
+    </article>
+    <article class="detail-pillar">
+      <span>02</span>
+      <h2>Transformation</h2>
+      <p>Pour montrer ce qui a change dans le volume, l implantation et les usages.</p>
+    </article>
+    <article class="detail-pillar">
+      <span>03</span>
+      <h2>Details</h2>
+      <p>Pour faire ressortir les finitions, les habillages, les rangements et la qualite de pose.</p>
+    </article>
   </section>
 
   <section class="section">

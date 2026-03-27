@@ -1,6 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { buildAbsoluteUrl, buildProjectWhatsappMessage, buildWhatsappHref, siteData } from '../data/site';
+import {
+  buildAbsoluteUrl,
+  buildProjectWhatsappMessage,
+  buildWhatsappHref,
+  siteData,
+} from '../data/site';
 
 const schema = {
   '@context': 'https://schema.org',
@@ -16,66 +21,85 @@ const schema = {
   canonical={buildAbsoluteUrl('/services/')}
   schema={schema}
 >
-  <section class="page-hero section">
-    <span class="eyebrow">Prestations</span>
-    <h1 class="page-title">Des travaux interieurs menes avec une logique de chantier claire.</h1>
-    <p class="page-lead">
-      Le site ne vend pas une liste impersonnelle de prestations. Il montre comment Ty Bat prend en charge les volumes, les
-      reseaux et les finitions pour livrer un interieur coherent.
-    </p>
+  <section class="page-hero section page-hero-split">
+    <div>
+      <span class="eyebrow">Prestations</span>
+      <h1 class="page-title">Des travaux interieurs menes avec une logique de chantier claire.</h1>
+      <p class="page-lead">
+        Ty Bat intervient sur les pieces d eau, cuisines, volumes techniques et finitions, avec une presentation qui relie
+        toujours la prestation au rendu final visible dans les projets.
+      </p>
+    </div>
+
+    <aside class="page-note">
+      <strong>Ce que montre le site</strong>
+      <p>Des prestations reliees a de vraies photos de chantiers, pour rassurer avant la prise de contact.</p>
+    </aside>
   </section>
 
-  <section class="section">
+  <section class="section service-ledger">
     <div class="service-grid">
       {siteData.services.map((service) => (
         <article class="service-card">
           <h2>{service.title}</h2>
           <p>{service.summary}</p>
-          <ul>
+          <ul class="chip-list" aria-label={`Prestations ${service.title}`}>
             {service.items.map((item) => (
-              <li>{item}</li>
+              <li class="chip">{item}</li>
             ))}
           </ul>
+        </article>
+      ))}
+    </div>
+
+    <aside class="service-side-note">
+      <span class="eyebrow">Fil conducteur</span>
+      <h2>Un meme niveau d exigence sur la preparation, la pose et la finition.</h2>
+      <p>
+        Le site insiste autant sur la lecture du chantier que sur la photo finale. C est ce qui donne de la credibilite a
+        l ensemble.
+      </p>
+    </aside>
+  </section>
+
+  <section class="section process-section">
+    <div class="process-grid">
+      {siteData.process.map((item) => (
+        <article class="process-card">
+          <div class="step">{item.step}</div>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
         </article>
       ))}
     </div>
   </section>
 
   <section class="section">
-    <div class="two-column">
-      <article class="panel stack">
-        <span class="eyebrow">Approche</span>
-        <h2>Pourquoi cette structure de site convertit mieux.</h2>
-        <p>
-          Les prestations sont reliees aux vrais projets et au contexte local. Cela rend le site plus credible pour le SEO,
-          mais surtout plus rassurant pour un futur client qui cherche deja un artisan.
-        </p>
-      </article>
-
-      <article class="panel stack">
+    <div class="cta-panel">
+      <div>
         <span class="eyebrow">Contact</span>
-        <h2>Partager un besoin, une photo ou une urgence.</h2>
-        <div class="button-row">
-          <a
-            class="button button-primary"
-            href={buildWhatsappHref(buildProjectWhatsappMessage())}
-            target="_blank"
-            rel="noreferrer"
-            data-plausible-event="click_whatsapp"
-            data-plausible-context="services"
-          >
-            Ouvrir WhatsApp
-          </a>
-          <a
-            class="button button-secondary"
-            href={siteData.phoneHref}
-            data-plausible-event="click_phone"
-            data-plausible-context="services"
-          >
-            {siteData.phoneDisplay}
-          </a>
-        </div>
-      </article>
+        <h2>Partager un besoin, une piece a reprendre ou des premieres photos du projet.</h2>
+      </div>
+      <div class="button-row">
+        <a
+          class="button button-primary"
+          href={buildWhatsappHref(buildProjectWhatsappMessage())}
+          target="_blank"
+          rel="noreferrer"
+          data-plausible-event="click_whatsapp"
+          data-plausible-context="services"
+        >
+          Ouvrir WhatsApp
+        </a>
+        <a
+          class="button button-secondary"
+          href={siteData.phoneHref}
+          data-plausible-event="click_phone"
+          data-plausible-context="services"
+        >
+          {siteData.phoneDisplay}
+        </a>
+      </div>
     </div>
   </section>
 </Layout>

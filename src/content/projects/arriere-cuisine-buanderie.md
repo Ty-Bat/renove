@@ -21,6 +21,24 @@ afterImages:
   - ./media/arriere-cuisine-buanderie/788aadee-eacf-4f85-b4c3-c5688306e5f5.jpg
   - ./media/arriere-cuisine-buanderie/ab6b1928-eb34-4871-86f9-222a2677d4a1.jpg
 galleryImages: []
+photoGroups:
+  - label: Etat initial
+    title: Un volume brut a rendre exploitable
+    text: "Les premiers visuels montrent une piece encore technique, sans vrai confort d usage ni lecture claire des volumes."
+    images:
+      - ./media/arriere-cuisine-buanderie/7e1ba7a4-b1d2-4931-92c4-279af177968f.jpg
+      - ./media/arriere-cuisine-buanderie/994f4fdf-bff3-4a35-a305-5a1923254a10.jpg
+  - label: Remise en ordre
+    title: Reseaux, doublages et implantation de la piece
+    text: "La transformation passe par le travail structurel invisible puis par une implantation qui redonne une fonction nette a la piece."
+    images:
+      - ./media/arriere-cuisine-buanderie/2bdfbe7a-f6dd-4c2c-8247-fbf106a0a7ca.jpg
+      - ./media/arriere-cuisine-buanderie/788aadee-eacf-4f85-b4c3-c5688306e5f5.jpg
+  - label: Finitions
+    title: Plans de travail, rangements et vues de detail
+    text: "La derniere sequence insiste sur le quotidien de la piece : rangements pratiques, surfaces propres et circulation simple."
+    images:
+      - ./media/arriere-cuisine-buanderie/ab6b1928-eb34-4871-86f9-222a2677d4a1.jpg
 primaryTone: charcoal
 results:
   - Passage d'un volume brut a une piece exploitable

@@ -19,6 +19,16 @@ const projects = defineCollection({
       beforeImages: z.array(image()).default([]),
       afterImages: z.array(image()).default([]),
       galleryImages: z.array(image()).default([]),
+      photoGroups: z
+        .array(
+          z.object({
+            label: z.string(),
+            title: z.string(),
+            text: z.string(),
+            images: z.array(image()).min(1),
+          }),
+        )
+        .default([]),
       primaryTone: z.string().default('clay'),
       results: z.array(z.string()),
     }),

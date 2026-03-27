@@ -1,14 +1,22 @@
 ---
 import { getCollection, render } from 'astro:content';
+import type { ImageMetadata } from 'astro';
 import Layout from '../../layouts/Layout.astro';
 import PictureBlock from '../../components/PictureBlock.astro';
-import ProjectGallery from '../../components/ProjectGallery.astro';
+import ProjectSequence from '../../components/ProjectSequence.astro';
 import {
   buildAbsoluteUrl,
   buildProjectWhatsappMessage,
   buildWhatsappHref,
   withBase,
 } from '../../data/site';
+
+type PhotoGroup = {
+  label: string;
+  title: string;
+  text: string;
+  images: ImageMetadata[];
+};
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -22,9 +30,36 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 const projectSlug = project.id.replace(/\.md$/, '');
 
-const beforeImages = project.data.beforeImages;
-const afterImages = project.data.afterImages;
-const extraImages = project.data.galleryImages;
+const fallbackGroups: PhotoGroup[] = [
+  project.data.beforeImages.length > 0
+    ? {
+        label: 'Etat initial',
+        title: 'Visuels avant chantier',
+        text: 'Premiers reperes photographiques avant intervention.',
+        images: project.data.beforeImages,
+      }
+    : null,
+  project.data.afterImages.length > 0
+    ? {
+        label: 'Resultat',
+        title: 'Photos apres livraison',
+        text: 'Lecture du rendu final et de la piece terminee.',
+        images: project.data.afterImages,
+      }
+    : null,
+  project.data.galleryImages.length > 0
+    ? {
+        label: 'Details',
+        title: 'Complements et vues de detail',
+        text: 'Vues complementaires pour montrer les finitions et l usage.',
+        images: project.data.galleryImages,
+      }
+    : null,
+].filter((item): item is PhotoGroup => item !== null);
+
+const photoGroups: PhotoGroup[] =
+  project.data.photoGroups.length > 0 ? project.data.photoGroups : fallbackGroups;
+
 const whatsappHref = buildWhatsappHref(buildProjectWhatsappMessage(project.data.title));
 const pageUrl = buildAbsoluteUrl(`/realisations/${projectSlug}/`);
 
@@ -50,104 +85,117 @@ const relatedProjects = (await getCollection('projects'))
   canonical={pageUrl}
   schema={schema}
 >
-  <section class="page-hero section">
-    <div class="project-hero">
-      <article class="panel stack">
-        <span class="eyebrow">{project.data.category}</span>
-        <h1 class="page-title">{project.data.title}</h1>
-        <p class="page-lead">{project.data.summary}</p>
+  <section class="section project-page-hero">
+    <div class="project-page-copy">
+      <span class="eyebrow">{project.data.category}</span>
+      <h1 class="page-title">{project.data.title}</h1>
+      <p class="page-lead">{project.data.summary}</p>
 
-        <ul class="chip-list" aria-label="Perimetre du chantier">
-          {project.data.scope.map((item) => (
-            <li class="chip">{item}</li>
-          ))}
-        </ul>
+      <ul class="chip-list" aria-label="Perimetre du chantier">
+        {project.data.scope.map((item) => (
+          <li class="chip">{item}</li>
+        ))}
+      </ul>
 
-        <div class="button-row">
-          <a
-            class="button button-primary"
-            href={whatsappHref}
-            target="_blank"
-            rel="noreferrer"
-            data-plausible-event="click_whatsapp"
-            data-plausible-context="project-page"
-            data-plausible-project={project.data.title}
-          >
-            Parler de ce projet
-          </a>
-          <a class="button button-secondary" href={withBase('/contact/')}>
-            Voir la page contact
-          </a>
-        </div>
+      <div class="button-row">
+        <a
+          class="button button-primary"
+          href={whatsappHref}
+          target="_blank"
+          rel="noreferrer"
+          data-plausible-event="click_whatsapp"
+          data-plausible-context="project-page"
+          data-plausible-project={project.data.title}
+        >
+          Parler de ce chantier
+        </a>
+        <a class="button button-secondary" href={withBase('/contact/')}>
+          Voir la page contact
+        </a>
+      </div>
+    </div>
 
-        <ul class="info-list">
-          <li class="chip">{project.data.location}</li>
-          <li class="chip">{project.data.completion}</li>
-        </ul>
-      </article>
-
-      <div class="media-frame">
+    <div class="project-page-stage">
+      <div class="project-stage-media">
         <PictureBlock
           src={project.data.heroImage}
           alt={project.data.heroAlt}
-          sizes="(min-width: 1050px) 48vw, 92vw"
+          sizes="(min-width: 1100px) 40vw, 92vw"
           loading="eager"
         />
       </div>
+
+      <aside class="project-stage-panel">
+        <div class="project-facts">
+          <span class="eyebrow">Repere</span>
+          <ul class="info-list">
+            <li class="chip">{project.data.location}</li>
+            <li class="chip">{project.data.completion}</li>
+          </ul>
+        </div>
+
+        <div class="project-facts">
+          <strong>Ce que ce chantier change</strong>
+          <ul class="result-list">
+            {project.data.results.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </aside>
     </div>
   </section>
 
-  <section class="section page-frame">
-    <div class="two-column">
-      <article class="panel content-prose">
-        <span class="eyebrow">Le chantier</span>
-        <Content />
-      </article>
+  <section class="section project-story-grid">
+    <article class="story-card content-prose">
+      <span class="eyebrow">Le chantier</span>
+      <Content />
+    </article>
 
-      <article class="panel stack">
-        <span class="eyebrow">Resultat</span>
-        <h2>Ce que cette renovation apporte</h2>
-        <ul>
-          {project.data.results.map((item) => (
-            <li>{item}</li>
-          ))}
-        </ul>
-      </article>
-    </div>
+    <article class="story-card">
+      <span class="eyebrow">Lecture du projet</span>
+      <h2>Des sous-sections pour montrer ce qui a ete fait, pas seulement le rendu final.</h2>
+      <p>
+        Cette fiche regroupe les photos par type d action realisee. Le but est de voir rapidement l avant, le changement de
+        volume, puis les details qui finissent le chantier.
+      </p>
+      <ol class="sequence-outline">
+        {photoGroups.map((group) => (
+          <li>
+            <strong>{group.label}</strong>
+            <span>{group.title}</span>
+          </li>
+        ))}
+      </ol>
+    </article>
   </section>
 
-  <section class="section page-frame">
-    {beforeImages.length > 0 ? (
-      <ProjectGallery title="Avant chantier" images={beforeImages} label="Avant" />
-    ) : (
-      <article class="notice-card">
-        <strong>Avant chantier indisponible</strong>
-        <p>
-          Ce projet est presente comme chantier livre. La structure de page reste compatible avec un vrai format avant /
-          apres si des visuels d etat initial sont ajoutes plus tard.
-        </p>
-      </article>
-    )}
-
-    {afterImages.length > 0 && (
-      <ProjectGallery title="Apres livraison" images={afterImages} label="Apres" />
-    )}
-
-    {extraImages.length > 0 && (
-      <ProjectGallery title="Details et angles complementaires" images={extraImages} label="Galerie" />
-    )}
+  <section class="section sequence-flow">
+    {photoGroups.map((group, index) => (
+      <ProjectSequence
+        label={group.label}
+        title={group.title}
+        text={group.text}
+        images={group.images}
+        reverse={index % 2 === 1}
+      />
+    ))}
   </section>
 
-  <section class="section">
+  <section class="section related-section">
     <div class="section-header">
-      <span class="eyebrow">Autres projets</span>
-      <h2>Explorer d autres ambiances de renovation.</h2>
+      <span class="eyebrow">Autres chantiers</span>
+      <h2>Poursuivre avec d autres typologies de renovation.</h2>
     </div>
 
     <div class="project-grid">
       {relatedProjects.map((entry) => (
         <article class="project-card">
-          <div class="media-frame">
+          <div class="project-card-head">
+            <span class="eyebrow">{entry.data.category}</span>
+            <span class="project-card-order">0{entry.data.featuredOrder}</span>
+          </div>
+          <div class="media-frame project-card-media">
             <PictureBlock
               src={entry.data.heroImage}
               alt={entry.data.heroAlt}
@@ -155,12 +203,17 @@ const relatedProjects = (await getCollection('projects'))
             />
           </div>
           <div class="project-card-body">
-            <span class="eyebrow">{entry.data.category}</span>
             <h3>{entry.data.title}</h3>
             <p>{entry.data.summary}</p>
             <footer>
               <span>{entry.data.location}</span>
-              <a class="text-link" href={withBase(`/realisations/${entry.id.replace(/\.md$/, '')}/`)} data-plausible-event="project_cta_click" data-plausible-context="related-project" data-plausible-project={entry.data.title}>
+              <a
+                class="text-link"
+                href={withBase(`/realisations/${entry.id.replace(/\.md$/, '')}/`)}
+                data-plausible-event="project_cta_click"
+                data-plausible-context="related-project"
+                data-plausible-project={entry.data.title}
+              >
                 Voir le projet
               </a>
             </footer>

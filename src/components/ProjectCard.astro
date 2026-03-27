@@ -9,10 +9,27 @@ interface Props {
 
 const { project } = Astro.props as Props;
 const projectSlug = project.id.replace(/\.md$/, '');
+const previewBlocks =
+  project.data.photoGroups.length > 0
+    ? project.data.photoGroups.slice(0, 3).map((group) => ({
+        label: group.label,
+        title: group.title,
+        image: group.images[0],
+      }))
+    : project.data.afterImages.slice(0, 3).map((image, index) => ({
+        label: `Vue ${index + 1}`,
+        title: project.data.title,
+        image,
+      }));
 ---
 
 <article class="project-card">
-  <div class="media-frame">
+  <div class="project-card-head">
+    <span class="eyebrow">{project.data.category}</span>
+    <span class="project-card-order">0{project.data.featuredOrder}</span>
+  </div>
+
+  <div class="media-frame project-card-media">
     <PictureBlock
       src={project.data.heroImage}
       alt={project.data.heroAlt}
@@ -22,19 +39,44 @@ const projectSlug = project.id.replace(/\.md$/, '');
   </div>
 
   <div class="project-card-body">
-    <span class="eyebrow">{project.data.category}</span>
     <h3>{project.data.title}</h3>
     <p>{project.data.summary}</p>
 
     <ul class="chip-list" aria-label="Perimetre du chantier">
-      {project.data.scope.slice(0, 3).map((item) => (
+      {project.data.scope.slice(0, 2).map((item) => (
         <li class="chip">{item}</li>
       ))}
     </ul>
 
+    {previewBlocks.length > 0 && (
+      <div class="project-preview-strip" aria-label={`Sous-sections du projet ${project.data.title}`}>
+        {previewBlocks.map((item) => (
+          <article class="preview-strip-card">
+            <div class="preview-strip-media">
+              <PictureBlock
+                src={item.image}
+                alt={item.title}
+                sizes="(min-width: 1100px) 9vw, (min-width: 760px) 16vw, 28vw"
+              />
+            </div>
+            <div>
+              <span>{item.label}</span>
+              <strong>{item.title}</strong>
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+
     <footer>
       <span>{project.data.location}</span>
-      <a class="text-link" href={withBase(`/realisations/${projectSlug}/`)} data-plausible-event="project_cta_click" data-plausible-context="project-card" data-plausible-project={project.data.title}>
+      <a
+        class="text-link"
+        href={withBase(`/realisations/${projectSlug}/`)}
+        data-plausible-event="project_cta_click"
+        data-plausible-context="project-card"
+        data-plausible-project={project.data.title}
+      >
         Voir le projet
       </a>
     </footer>

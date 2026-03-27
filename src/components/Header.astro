@@ -1,5 +1,5 @@
 ---
-import { withBase } from '../data/site';
+import { siteData, withBase } from '../data/site';
 
 const pathname = Astro.url.pathname;
 
@@ -18,12 +18,18 @@ const navItems = [
       <span class="brand-subtitle">Renovation interieure</span>
     </a>
 
-    <nav class="site-nav" aria-label="Navigation principale">
-      {navItems.map((item) => (
-        <a href={withBase(item.href)} aria-current={pathname === withBase(item.href) ? 'page' : undefined}>
-          {item.label}
-        </a>
-      ))}
-    </nav>
+    <div class="site-header-actions">
+      <nav class="site-nav" aria-label="Navigation principale">
+        {navItems.map((item) => (
+          <a href={withBase(item.href)} aria-current={pathname === withBase(item.href) ? 'page' : undefined}>
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <a class="header-phone" href={siteData.phoneHref} data-plausible-event="click_phone" data-plausible-context="header">
+        {siteData.phoneDisplay}
+      </a>
+    </div>
   </div>
 </header>
