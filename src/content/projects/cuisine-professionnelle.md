@@ -1,18 +1,18 @@
 ---
-title: Cuisine professionnelle et rangements integres
-summary: Amenagement d'un espace cuisine net et fonctionnel, pense pour un usage intensif avec rangements lineaires et circulation fluide.
+title: Cuisine equipee et rangements sur mesure
+summary: Implantation en L, plans continus et rangements integres pour une cuisine plus lisible, pratique et facile a vivre.
 location: Finistere nord
 category: Cuisine
 completion: Chantier livre
 featured: true
 featuredOrder: 2
 scope:
-  - Implantation sur mesure
+  - Implantation en L
   - Plans de travail et credence
   - Reseaux et eclairage
-  - Portes coulissantes et rangements
+  - Rangements integres
 heroImage: ./media/cuisine-professionnelle/0858cc79-3af9-4966-8a91-d63bf53053cd.jpg
-heroAlt: Vue d'une cuisine equipee blanche avec plan de travail bois et porte vitree.
+heroAlt: Vue d une cuisine equipee avec implantation en L, plans de travail et rangements integres.
 beforeImages: []
 afterImages:
   - ./media/cuisine-professionnelle/0858cc79-3af9-4966-8a91-d63bf53053cd.jpg
@@ -21,32 +21,30 @@ afterImages:
   - ./media/cuisine-professionnelle/d07da175-a008-40f2-8f1e-1a4096229ce2.jpg
 galleryImages:
   - ./media/cuisine-professionnelle/5efe3634-ad6c-480d-8255-5373a0198f26.jpg
-  - ./media/cuisine-professionnelle/e790508b-dbfe-454d-abf3-c44a4fd9bd41.jpg
 photoGroups:
   - label: Vue d'ensemble
-    title: Une cuisine remise au propre pour un usage intensif
-    text: "Le projet met d'abord en avant une lecture simple de la piece, avec des lineaires nets et une circulation sans rupture."
+    title: Une cuisine claire et bien implantee
+    text: "Le projet montre d abord une piece remise au propre, avec des lineaires lisibles et une circulation sans rupture."
     images:
       - ./media/cuisine-professionnelle/0858cc79-3af9-4966-8a91-d63bf53053cd.jpg
       - ./media/cuisine-professionnelle/5421bf0c-e3e7-44ec-a254-028dfbcd26bf.jpg
-  - label: Fonction
-    title: Rangements, plans de travail et implantation utile
-    text: "Les vues intermediaires montrent le vrai sujet du chantier : faciliter l entretien, le rangement et la lecture du plan de travail."
+  - label: Implantation
+    title: Plans continus, rangements et circulation fluide
+    text: "Les vues intermediaires montrent le vrai sujet du chantier : rendre le plan de travail plus simple a utiliser et les rangements plus utiles au quotidien."
     images:
       - ./media/cuisine-professionnelle/945cfb88-bb96-4b3b-8ceb-b30ce6830c68.jpg
       - ./media/cuisine-professionnelle/d07da175-a008-40f2-8f1e-1a4096229ce2.jpg
   - label: Details
-    title: Acces, porte vitree et finitions
-    text: "Les derniers cadrages viennent raconter l usage concret de la piece avec les details de pose, d acces et de finition."
+    title: Rangements, details et usages du quotidien
+    text: "Les derniers cadrages viennent raconter les details de pose et la facon dont la piece reste nette, pratique et facile a entretenir."
     images:
       - ./media/cuisine-professionnelle/5efe3634-ad6c-480d-8255-5373a0198f26.jpg
-      - ./media/cuisine-professionnelle/e790508b-dbfe-454d-abf3-c44a4fd9bd41.jpg
 primaryTone: sage
 results:
-  - Poste de travail facile a entretenir
-  - Rangements lineaires et circulation simple
-  - Piece plus nette, plus lumineuse et plus pratique
+  - Circulation plus simple dans la piece
+  - Plans utiles et rangements mieux repartis
+  - Cuisine plus nette et plus facile a entretenir
 ---
-Le chantier met en avant un interieur propre, rationnel et facile a vivre. La cuisine devient un espace de travail lisible, avec des lignes droites et une implantation qui ne gaspille pas le volume.
+Le chantier met en avant une cuisine remise au propre, avec une implantation claire, des surfaces faciles a utiliser et un ensemble qui reste lisible au premier regard.
 
-Le site utilise ce projet pour parler de fonctionnalite autant que d'esthetique : une renovation utile peut aussi etre tres bien finie.
+Le site utilise ce projet pour parler de fonctionnalite autant que de finition : une cuisine utile peut aussi etre sobre, bien tenue et agreable a vivre.

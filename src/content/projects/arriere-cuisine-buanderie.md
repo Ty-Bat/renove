@@ -19,7 +19,6 @@ beforeImages:
 afterImages:
   - ./media/arriere-cuisine-buanderie/2bdfbe7a-f6dd-4c2c-8247-fbf106a0a7ca.jpg
   - ./media/arriere-cuisine-buanderie/788aadee-eacf-4f85-b4c3-c5688306e5f5.jpg
-  - ./media/arriere-cuisine-buanderie/ab6b1928-eb34-4871-86f9-222a2677d4a1.jpg
 galleryImages: []
 photoGroups:
   - label: Etat initial
@@ -38,7 +37,8 @@ photoGroups:
     title: Plans de travail, rangements et vues de detail
     text: "La derniere sequence insiste sur le quotidien de la piece : rangements pratiques, surfaces propres et circulation simple."
     images:
-      - ./media/arriere-cuisine-buanderie/ab6b1928-eb34-4871-86f9-222a2677d4a1.jpg
+      - ./media/arriere-cuisine-buanderie/2bdfbe7a-f6dd-4c2c-8247-fbf106a0a7ca.jpg
+      - ./media/arriere-cuisine-buanderie/788aadee-eacf-4f85-b4c3-c5688306e5f5.jpg
 primaryTone: charcoal
 results:
   - Passage d'un volume brut a une piece exploitable

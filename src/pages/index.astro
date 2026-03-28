@@ -92,20 +92,6 @@ const schema = {
         </a>
       </div>
 
-      <div class="hero-ledger">
-        <article class="ledger-card">
-          <span>Approche</span>
-          <strong>Un seul interlocuteur du premier repere jusqu'a la livraison.</strong>
-        </article>
-        <article class="ledger-card">
-          <span>Portfolio</span>
-          <strong>Chaque chantier est raconte en vues d'ensemble, transformation et details.</strong>
-        </article>
-        <article class="ledger-card">
-          <span>Zone</span>
-          <strong>{siteData.serviceAreaLabel}</strong>
-        </article>
-      </div>
     </div>
 
     <div class="hero-stage">
@@ -128,10 +114,10 @@ const schema = {
       <div class="hero-stage-stack">
         <article class="hero-note-card">
           <span class="eyebrow">Lecture chantier</span>
-          <h2>Des fiches organisees par sequence d intervention.</h2>
+          <h2>Des fiches claires pour voir le chantier d un coup d oeil.</h2>
           <p>
-            Chaque projet met en evidence l etat initial, les transformations visibles et les photos de detail, pour mieux
-            montrer ce qui a vraiment ete realise.
+            Chaque fiche presente l ensemble, les points de pose et les finitions pour montrer rapidement ce qui a
+            vraiment ete realise.
           </p>
           <ul class="mini-list">
             {leadProject.data.photoGroups.slice(0, 3).map((group) => (
@@ -154,6 +140,21 @@ const schema = {
           </div>
         </article>
       </div>
+    </div>
+
+    <div class="hero-ledger">
+      <article class="ledger-card">
+        <span>Approche</span>
+        <strong>Un seul interlocuteur du premier repere jusqu'a la livraison.</strong>
+      </article>
+      <article class="ledger-card">
+        <span>Portfolio</span>
+        <strong>Chaque chantier est raconte en vues d'ensemble, transformation et details.</strong>
+      </article>
+      <article class="ledger-card">
+        <span>Zone</span>
+        <strong>{siteData.serviceAreaLabel}</strong>
+      </article>
     </div>
   </section>
 
